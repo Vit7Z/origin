@@ -23,28 +23,18 @@ class Figure
     }
 
     Figure() : Figure(0, "Фигура") {}
-
-    //unsigned short getNumberOfSides() {
-    //return numberOfSides;
-    //}
-
-    //std::string setName() {
-    //  return name;
-    //}
 };//class
 
 class Triangle:public Figure
 {
   public:
-    Triangle():Figure (3, "Треугольник") {
-    }
+    Triangle():Figure (3, "Треугольник") { }
 };//class
 
 class Quadrangle :public Figure
 {
   public:
-    Quadrangle() :Figure(4, "Четырехугольник") {
-    }
+    Quadrangle() :Figure(4, "Четырехугольник") { }
 };//class
 
 

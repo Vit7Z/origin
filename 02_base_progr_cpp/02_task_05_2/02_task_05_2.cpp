@@ -6,103 +6,91 @@
 #include <windows.h>
 
 //-----------------------------------------------------------------------------
-class PolygonT
-{
-protected:
-  std::string name;
-  unsigned short numberOfSides;
+class Figure {
+  protected:
+    std::string name;
 
-  unsigned short side_a;
-  unsigned short side_b;
-  unsigned short side_c;
+    Figure(std::string name_) {
+      name = name_;
+    }
 
-  unsigned short angle_A;
-  unsigned short angle_B;
-  unsigned short angle_C;
+  public:
+    virtual void printData() {
+      std::cout << name << ":" << std::endl;
+    }
 
-  PolygonT(unsigned short side_a_, unsigned short side_b_, unsigned short side_c_,
-    unsigned short angle_A_, unsigned short angle_B_, unsigned short angle_C_) {
-    name = "Многоугольник";
-    numberOfSides = 3;
-
-    side_a = side_a_;
-    side_b = side_b_;
-    side_c = side_c_;
-
-    angle_A = angle_A_;
-    angle_B = angle_B_;
-    angle_C = angle_C_;
-  }
-
-public:
-  PolygonT() :PolygonT(1, 1, 1, 60, 60, 60) {}
-
-  void printData() {
-    std::cout << name << ": " << std::endl;
-    std::cout << "Стороны: a=" << side_a << " b=" << side_b << " c=" << side_c << std::endl;
-    std::cout << "Углы: A=" << angle_A << " B=" << angle_B << " C=" << angle_C << std::endl;
-  }
+    Figure() 
+      :Figure("Фигура") {}
 };//class
 
+
 //-----------------------------------------------------------------------------
-class ScaleneTriangle :public PolygonT
+class ScaleneTriangle :public Figure
 {
+  protected:
+    unsigned short side_a, side_b, side_c;
+    unsigned short angle_A, angle_B, angle_C;
+
   public:
     ScaleneTriangle(unsigned short side_a_, unsigned short side_b_, unsigned short side_c_,
-      unsigned short angle_A_, unsigned short angle_B_, unsigned short angle_C_) :PolygonT() {
-     name = "Треугольник";
-     
-     side_a = side_a_;
-     side_b = side_b_;
-     side_c = side_c_;
+      unsigned short angle_A_, unsigned short angle_B_, unsigned short angle_C_) 
+      :Figure() {
 
-     angle_A = angle_A_;
-     angle_B = angle_B_;
-     angle_C = angle_C_;
+      name = "Треугольник";
 
+      side_a = side_a_;
+      side_b = side_b_;
+      side_c = side_c_;
+
+      angle_A = angle_A_;
+      angle_B = angle_B_;
+      angle_C = angle_C_;
+    }
+
+    void printData() {
+      std::cout << name << ": " << std::endl;
+      std::cout << "Стороны: a=" << side_a << " b=" << side_b << " c=" << side_c << std::endl;
+      std::cout << "Углы: A=" << angle_A << " B=" << angle_B << " C=" << angle_C << std::endl;
     }
 };//class
 
+
 //-----------------------------------------------------------------------------
-class RightAngledTriangle :public PolygonT
+class RightAngledTriangle :public ScaleneTriangle
 {
 public:
-  RightAngledTriangle (unsigned short side_a_, unsigned short side_b_, unsigned short side_c_,
-    unsigned short angle_A_, unsigned short angle_B_) :PolygonT() {
+  RightAngledTriangle(unsigned short side_a_, unsigned short side_b_, unsigned short side_c_,
+    unsigned short angle_A_, unsigned short angle_B_)
+    :ScaleneTriangle (side_a_, side_b_, side_c_, angle_A_, angle_B_, angle_C) {
     name = "Прямоугольный треугольник";
 
-    side_a = side_a_;
-    side_b = side_b_;
-    side_c = side_c_;
-
-    angle_A = angle_A_;
-    angle_B = angle_B_;
     angle_C = 90;
   }
 };//class
 
 //-----------------------------------------------------------------------------
-class EquilateralTriangle:public PolygonT
+class EquilateralTriangle:public ScaleneTriangle
 {
 public:
-  EquilateralTriangle(unsigned short side_a_) :PolygonT() {
+  EquilateralTriangle(unsigned short side_a_)
+    :ScaleneTriangle(side_a_, side_b, side_c, angle_A, angle_B, angle_C) {
     name = "Равносторонний треугольник";
 
     side_a = side_b = side_c = side_a_;
-
     angle_A = angle_B = angle_C = 60;
   }
 };//class
 
 //-----------------------------------------------------------------------------
-class IsoscelesTriangle :public PolygonT
+class IsoscelesTriangle :public ScaleneTriangle
 {
 public:
-  IsoscelesTriangle(unsigned short side_a_, unsigned short side_b_, unsigned short angle_B_) :PolygonT() {
+  IsoscelesTriangle(unsigned short side_a_, unsigned short side_b_, unsigned short angle_B_) 
+    :ScaleneTriangle(side_a_, side_b_, side_c, angle_A, angle_B_, angle_C) {
     name = "Равнобедренный треугольник";
 
     side_a = side_c = side_a_;
-    side_b= side_b_;
+    side_b = side_b_;
 
     angle_A = angle_C = 60;
     angle_B = angle_B_;
@@ -110,29 +98,20 @@ public:
 };//class
 
 //-----------------------------------------------------------------------------
-class Quadrilateral
+class Quadrilateral: public Figure
 {
 protected:
-  std::string name;
-  unsigned short numberOfSides;
+  unsigned short side_a, side_b, side_c, side_d;
+  unsigned short angle_A, angle_B, angle_C, angle_D;
 
-  unsigned short side_a;
-  unsigned short side_b;
-  unsigned short side_c;
-  unsigned short side_d;
-
-  unsigned short angle_A;
-  unsigned short angle_B;
-  unsigned short angle_C;
-  unsigned short angle_D;
-
+public:
   Quadrilateral(unsigned short side_a_, unsigned short side_b_,
     unsigned short side_c_, unsigned short side_d_, 
     unsigned short angle_A_, unsigned short angle_B_, 
-    unsigned short angle_C_, unsigned short angle_D_) {
+    unsigned short angle_C_, unsigned short angle_D_) 
+    :Figure() {
 
     name = "Четырехугольник";
-    numberOfSides = 4;
 
     side_a = side_a_;
     side_b = side_b_;
@@ -145,9 +124,6 @@ protected:
     angle_D = angle_D_;
   }
 
-public:
-  Quadrilateral() :Quadrilateral(1, 1, 1, 1, 90, 90, 90, 90) {}
-
   void printData() {
     std::cout << name << ": " << std::endl;
     std::cout << "Стороны: a=" << side_a << " b=" << side_b << " c=" << side_c << " d=" << side_d << std::endl;
@@ -155,17 +131,18 @@ public:
   }
 };//class
 
+
 //-----------------------------------------------------------------------------
 class Parallelogram :public Quadrilateral
 {
 public:
   Parallelogram(unsigned short side_a_, unsigned short side_b_,
-    unsigned short angle_A_, unsigned short angle_B_) :Quadrilateral( ) {
+    unsigned short angle_A_, unsigned short angle_B_) 
+    :Quadrilateral(side_a_, side_b_, side_c, side_d, angle_A_, angle_B_, angle_C, angle_D) {
     name = "Параллелограмм";
 
     side_a = side_c = side_a_;
     side_b = side_d = side_b_;
-
     angle_A = angle_C = angle_A_;
     angle_B = angle_D = angle_B_;
   }
@@ -175,12 +152,12 @@ public:
 class RectangleT:public Quadrilateral
 {
 public:
-  RectangleT(unsigned short side_a_, unsigned short side_b_):Quadrilateral() {
+  RectangleT(unsigned short side_a_, unsigned short side_b_)
+    :Quadrilateral(side_a_, side_b_, side_c, side_d, angle_A, angle_B, angle_C, angle_D) {
     name = "Прямоугольник";
 
     side_a = side_c = side_a_;
     side_b = side_d = side_b_;
-
     angle_A = angle_B = angle_C = angle_D = 90;
   }
 };//class
@@ -190,11 +167,11 @@ public:
 class Square :public Quadrilateral
 {
 public:
-  Square(unsigned short side_a_) :Quadrilateral() {
+  Square(unsigned short side_a_) 
+    :Quadrilateral(side_a_, side_b, side_c, side_d, angle_A, angle_B, angle_C, angle_D) {
     name = "Квадрат";
 
     side_a = side_c = side_b = side_d =  side_a_;
-
     angle_A = angle_B = angle_C = angle_D = 90;
   }
 };//class
@@ -204,15 +181,20 @@ public:
 class Rhomb :public Quadrilateral
 {
 public:
-  Rhomb(unsigned short side_a_, unsigned short angle_A_, unsigned short angle_B_) :Quadrilateral() {
+  Rhomb(unsigned short side_a_, unsigned short angle_A_, unsigned short angle_B_) 
+    :Quadrilateral(side_a_, side_b, side_c, side_d, angle_A_, angle_B_, angle_C, angle_D) {
     name = "Ромб";
 
     side_a = side_c = side_b = side_d = side_a_;
-
     angle_A = angle_C = angle_A_;
     angle_B = angle_D = angle_B_;
   }
 };//class
+
+void print_info(Figure* figure) {
+  figure->printData();
+  std::cout << std::endl;
+}
 
 
 int main(int argc, char** argv)
@@ -221,7 +203,7 @@ int main(int argc, char** argv)
   SetConsoleCP(1251);
   SetConsoleOutputCP(1251);
 
-  ScaleneTriangle scTriangle(45, 46, 47, 50, 50, 50);
+  ScaleneTriangle scTriangle(44, 55, 66, 50, 50, 50);
 
   RightAngledTriangle raTriangle(10, 20, 30, 50, 60);
 
@@ -229,37 +211,40 @@ int main(int argc, char** argv)
 
   IsoscelesTriangle isTriangle(10, 20, 30);
 
-  RectangleT someRectangle(20, 30);
+  Parallelogram someParallelogram(21, 31, 20, 30);
 
-  Parallelogram someParallelogram(20, 30, 20, 30);
+  RectangleT someRectangle(20, 30);
 
   Square someSquare(40);
 
   Rhomb someRhomb(50, 60, 130);
 
-  scTriangle.printData();
-  std::cout << std::endl;
+  Figure fig;
+  Figure* pfig = &fig;
 
-  raTriangle.printData();
-  std::cout << std::endl;
+  pfig = &scTriangle;
+  print_info(pfig);
+  
+  pfig = &raTriangle;
+  print_info(pfig);
+  
+  pfig = &eqTriangle;
+  print_info(pfig);
 
-  eqTriangle.printData();
-  std::cout << std::endl;
+  pfig = &isTriangle;
+  print_info(pfig);
 
-  isTriangle.printData();
-  std::cout << std::endl;
+  pfig = &someParallelogram;
+  print_info(pfig);
 
-  someRectangle.printData();
-  std::cout << std::endl;
+  pfig = &someRectangle;
+  print_info(pfig);
 
-  someParallelogram.printData();
-  std::cout << std::endl;
+  pfig = &someSquare;
+  print_info(pfig);
 
-  someSquare.printData();
-  std::cout << std::endl;
-
-  someRhomb.printData();
-  std::cout << std::endl;
+  pfig = &someRhomb;
+  print_info(pfig);
 
   return 0;
 }

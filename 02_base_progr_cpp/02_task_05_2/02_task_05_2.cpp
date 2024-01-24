@@ -23,7 +23,6 @@ class Figure {
       :Figure("‘игура") {}
 };//class
 
-
 //-----------------------------------------------------------------------------
 class ScaleneTriangle :public Figure
 {
@@ -53,7 +52,6 @@ class ScaleneTriangle :public Figure
       std::cout << "”глы: A=" << angle_A << " B=" << angle_B << " C=" << angle_C << std::endl;
     }
 };//class
-
 
 //-----------------------------------------------------------------------------
 class RightAngledTriangle :public ScaleneTriangle
@@ -131,7 +129,6 @@ public:
   }
 };//class
 
-
 //-----------------------------------------------------------------------------
 class Parallelogram :public Quadrilateral
 {
@@ -162,7 +159,6 @@ public:
   }
 };//class
 
-
 //-----------------------------------------------------------------------------
 class Square :public Quadrilateral
 {
@@ -175,7 +171,6 @@ public:
     angle_A = angle_B = angle_C = angle_D = 90;
   }
 };//class
-
 
 //-----------------------------------------------------------------------------
 class Rhomb :public Quadrilateral
@@ -195,7 +190,6 @@ void print_info(Figure* figure) {
   figure->printData();
   std::cout << std::endl;
 }
-
 
 int main(int argc, char** argv)
 {

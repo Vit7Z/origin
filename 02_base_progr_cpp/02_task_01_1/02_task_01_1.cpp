@@ -18,8 +18,7 @@ void moveArrayRight(std::string* Arr, int z) {
     std::string tmp = Arr[z - 1];
     
     for (int i = z - 1; i > 0; i--) {
-
-        Arr[i] = Arr[i - 1];
+			Arr[i] = Arr[i - 1];
     }
     
     Arr[0] = tmp;
@@ -47,7 +46,6 @@ int main(int argc, char** argv)
     std::string stringFromFile;
 
     int sizeOfArray_1 = 0;
-
     int sizeOfArray_2 = 0;
 
     std::ifstream readFromFile("in.txt");

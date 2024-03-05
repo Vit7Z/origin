@@ -6,7 +6,7 @@
 #include <locale.h>
 
 //-------------------------------------------------------------------------------------
-int CalculateHash(std::string stringForHash_, int p_, int n_)
+int find_substring_light_rabin_karp(std::string m_stringForHash_, int p_, int n_)
 {
   uint64_t sum = 0;
   uint64_t tmp = 0;

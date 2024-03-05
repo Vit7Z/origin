@@ -19,7 +19,6 @@ class smart_array
   public:
 		smart_array(int actualSize_) {
 			actualSize_ = actualSize;
-
 			arrNum = new int[actualSize] {0};
 	  }
 		
@@ -28,7 +27,7 @@ class smart_array
 			if (logicSize >= actualSize) {
 				actualSize *= 2;
 				int* arrNew{ new int[actualSize] };
-				for (int i = 0; i <= logicSize; i++) {
+				for (int i = 0; i < logicSize; i++) {
 					arrNew[i] = arrNum[i];
 				}
 				arrNum = arrNew;
@@ -45,6 +44,7 @@ class smart_array
 		}
 
 	  int get_element(int num_) {
+			if (num_ < 0  > logicSize) {
 			return arrNum[num_];
 		}
 
@@ -70,20 +70,16 @@ int main(int argc, char** argv)
 	new_array.add_element(44);
 	new_array.add_element(34);
 
-	//std::cout << "Массив 1" << std::endl;
-
-	//for (int i = 0; i < 5; i++) {
-	//	std::cout << arr.get_element(i) << "\t";
-	//}
-
-	//std::cout << std::endl;
+	std::cout << "Массив 1" << std::endl;
+	for (int i = 0; i < 5; i++) {
+		std::cout << arr.get_element(i) << "\t";
+	}
+	std::cout << std::endl;
 
 	//std::cout << "Массив 2" << std::endl;
-
 	//for (int i = 0; i < 2; i++) {
 	//	std::cout << new_array.get_element(i) << "\t";
 	//}
-
 	//std::cout << std::endl;
 
 	//arr = new_array;

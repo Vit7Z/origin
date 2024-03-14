@@ -119,7 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="02_task_06_2.cpp" />
+    <ClCompile Include="02_task_062.cpp" />
     <ClCompile Include="counter.cpp" />
   </ItemGroup>
   <ItemGroup>

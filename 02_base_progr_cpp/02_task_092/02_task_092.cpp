@@ -5,6 +5,7 @@
 #include <clocale>
 #include <locale.h>
 #include <windows.h>
+#include <numeric>
 
 //-----------------------------------------------------------------------------
 void checkZero(int& num_1_, int num_2_) {
@@ -15,17 +16,28 @@ void checkZero(int& num_1_, int num_2_) {
 	}//while
 }
 
-//НОД--------------------------------------------------------------------------
+//-------вычислить НОД---------------------------------------------------------
 int calculateGcd(int num1, int num2) {
-	while (num2 > 0) {
-		int tmp = num1 % num2;
-		num1 = num2;
-		num2 = tmp;
+	if (num1 == 0) {
+    return num2;
 	}
-	return num1;
+		
+	if (num2 == 0) {
+    return num1;
+	}
+
+	if (num1 == num2) {
+		return num1;
+	}
+
+	if (num1 > num2) {
+		return calculateGcd(num1 - num2, num2);
+	}
+		
+	return calculateGcd(num1, num2 - num1);
 }
 
-//НОК--------------------------------------------------------------------------
+//-------вычислить НОК---------------------------------------------------------
 int calculateLcm(int num1, int num2) {
 	return (num1 * num2 / calculateGcd(num1, num2));
 }
@@ -51,77 +63,85 @@ class Fraction {
 			return denom_;
 		}
 
-		//-------------------------------------------
 		void reduce() {
 			int gcd_ = calculateGcd(abs(num_), denom_);
-
 			if (gcd_ != 1) {
 				num_ = num_ / gcd_;
 				denom_ = denom_ / gcd_;
 			}
 		}
 
-		//-------------------------------------------
-		std::string printFraction () {
-			return std::to_string(num_) + "/" + std::to_string(denom_);
+		std::string printInFraction() {
+			std::string fractionIn = std::to_string(num_) + "/" + std::to_string(denom_);
+			return fractionIn;
 		}
 
-		//-------------------------------------------
+		std::string printOutFraction () {
+		  std::string fraction = "";
+
+			if (num_ == 0) {
+				fraction = "0";
+			}
+
+			if (num_ != 0) {
+				if (denom_ != 1) {
+					if (num_ % denom_ == 0) {
+						fraction = std::to_string(num_ / denom_);
+					} else {
+            fraction = std::to_string(num_) + "/" + std::to_string(denom_);
+					}
+				}
+				if (denom_ == 1) {
+					fraction = std::to_string(num_);
+				}
+			}
+		  return fraction;
+		}
+
 		Fraction operator+ (Fraction other) {
-			int commonDenum = calculateLcm(denom_, other.denom_);
-			int tmp_res = (num_ * (commonDenum / denom_)) + (other.num_ * (commonDenum / other.denom_));
-			Fraction result = Fraction(tmp_res, commonDenum);
+			int denomTmp = calculateLcm(denom_, other.denom_);
+			int numTmp = (num_ * (denomTmp / denom_)) + (other.num_ * (denomTmp / other.denom_));
+			Fraction result = Fraction(numTmp, denomTmp);
 			reduce();
 			return result;
 		}
 
-
-		//-------------------------------------------
 		Fraction operator- (Fraction other) {
-			//int commonDenum;
-
-			if (num_ == other.num_ && denom_ == other.denom_) {
-				int commonDenum = 0;
-				int tmp_res = 0;
-				Fraction result = Fraction(tmp_res, commonDenum);
-				return result;
-			}
-
-			if (num_ != other.num_ && denom_ == other.denom_) {
-				int commonDenum = denom_;
-				int tmp_res = num_ - other.num_;
-				Fraction result = Fraction(tmp_res, commonDenum);
-				reduce();
-				return result;
-			}
-
-			if (num_ != other.num_ && denom_ != other.denom_) {
-				int commonDenum = calculateLcm(denom_, other.denom_);
-				int tmp_res = (num_ * (commonDenum / denom_)) - (other.num_ * (commonDenum / other.denom_));
-				Fraction result = Fraction(tmp_res, commonDenum);
-				reduce();
-				return result;
-			}
+			int denomTmp = calculateLcm(denom_, other.denom_);
+			int numTmp = (num_ * (denomTmp / denom_)) - (other.num_ * (denomTmp / other.denom_));
+			Fraction result = Fraction(numTmp, denomTmp);
+			reduce();
+			return result;
 		}
 
+		Fraction operator* (Fraction other) {
+			int numTmp = num_ * other.num_;
+			int denomTmp = denom_ * other.denom_;
+			Fraction result = Fraction(numTmp, denomTmp);
+			reduce();
+			return result;
+		}
 
+		Fraction operator/ (Fraction other) {
+			int numTmp = num_ * other.denom_;
+			int denomTmp = denom_ * other.num_;
+			Fraction result = Fraction(numTmp, denomTmp);
+			reduce();
+			return result;
+		}
 
+		Fraction& operator++() {
+			num_ += denom_;
+			reduce();
+			return *this;
+		}
 
+		Fraction& operator--() {
+			num_ -= denom_;
+			reduce();
+			return *this;
+		}
 };//class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -165,23 +185,41 @@ int main(int argc, char** argv)
 	//Fraction f1(3, 4);
 	//Fraction f2(4, 5);
 
-
 	Fraction sumFraction = f1 + f2;
 
-	//sumFraction.reduce();
+	Fraction subtrFraction = f1 - f2;
 
-	//Fraction subtrFraction = f1 - f2;
+	Fraction multiplFraction = f1 * f2;
 
-	//subtrFraction.reduce();
+	Fraction divFraction = f1 / f2;
 
-
-
-	std::cout << f1.printFraction() << " + " << f2.printFraction() << " = " << sumFraction.printFraction();
+	std::cout << f1.printInFraction() << " + " << f2.printInFraction() << " = " << sumFraction.printOutFraction();
 
 	std::cout << "\n";
 
-	//std::cout << f1.printFraction() << " - " << f2.printFraction() << " = " << subtrFraction.printFraction();
+	std::cout << f1.printInFraction() << " - " << f2.printInFraction() << " = " << subtrFraction.printOutFraction();
 
+	std::cout << "\n";
+
+	std::cout << f1.printInFraction() << " * " << f2.printInFraction() << " = " << multiplFraction.printOutFraction();
+
+	std::cout << "\n";
+
+	std::cout << f1.printInFraction() << " / " << f2.printInFraction() << " = " << divFraction.printOutFraction();
+
+	std::cout << "\n";
+
+  Fraction sum_pre = ++f1 * f2;
+
+	--f1;
+
+	std::cout << "++" << f1.printInFraction() << " * " << f2.printInFraction() << " = " << sum_pre.printOutFraction();
+
+	std::cout << "\n";
+
+	++f1;
+
+	std::cout << "Префиксный инкремент дроби 1 -> "  << f1.printInFraction();
 
   return 0;
 }

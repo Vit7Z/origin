@@ -9,18 +9,36 @@
 class Figure {
   protected:
     std::string name;
+    unsigned short numberOfSides;
 
-    Figure(std::string name_) {
+    Figure(std::string name_, unsigned short numberOfSides_) {
       name = name_;
+      numberOfSides = numberOfSides_;
     }
 
   public:
-    virtual void printData() {
-      std::cout << name << ":" << std::endl;
-    }
+    Figure() :Figure("Фигура", 0) {}
 
-    Figure() 
-      :Figure("Фигура") {}
+    virtual bool check() {
+      if (numberOfSides == 0) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    };
+
+    virtual void print_info() {
+      std::cout << std::endl;
+      std::cout << name << ":" << std::endl;
+      if (check()) {
+        std::cout << "Правильная" << std::endl;
+      }
+      else {
+        std::cout << "Неправильная" << std::endl;
+      }
+      std::cout << "Количество сторон: " << numberOfSides << std::endl;
+    }
 };//class
 
 //-----------------------------------------------------------------------------
@@ -36,6 +54,7 @@ class ScaleneTriangle :public Figure
       :Figure() {
 
       name = "Треугольник";
+      numberOfSides = 3;
 
       side_a = side_a_;
       side_b = side_b_;
@@ -46,8 +65,20 @@ class ScaleneTriangle :public Figure
       angle_C = angle_C_;
     }
 
-    void printData() {
-      std::cout << name << ": " << std::endl;
+    virtual bool check() override {
+      unsigned short sum_of_angle { 0 };
+      sum_of_angle = angle_A + angle_B + angle_C;
+      
+      if (numberOfSides == 3 && sum_of_angle == 180) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    };
+
+    void print_info() {
+      Figure::print_info();
       std::cout << "Стороны: a=" << side_a << " b=" << side_b << " c=" << side_c << std::endl;
       std::cout << "Углы: A=" << angle_A << " B=" << angle_B << " C=" << angle_C << std::endl;
     }
@@ -64,6 +95,15 @@ public:
 
     angle_C = 90;
   }
+
+  virtual bool check() override {
+    if (ScaleneTriangle::check() && angle_C == 90) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 };//class
 
 //-----------------------------------------------------------------------------
@@ -76,6 +116,15 @@ public:
 
     side_a = side_b = side_c = side_a_;
     angle_A = angle_B = angle_C = 60;
+  }
+
+  virtual bool check() override {
+    if (ScaleneTriangle::check() && angle_A == 60 && side_a == side_b) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 };//class
 
@@ -93,6 +142,17 @@ public:
     angle_A = angle_C = 60;
     angle_B = angle_B_;
   }
+
+  virtual bool check() override {
+    if (ScaleneTriangle::check() && angle_A == 60 && side_a == side_c) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+
 };//class
 
 //-----------------------------------------------------------------------------
@@ -110,6 +170,7 @@ public:
     :Figure() {
 
     name = "Четырехугольник";
+    numberOfSides = 4;
 
     side_a = side_a_;
     side_b = side_b_;
@@ -122,12 +183,24 @@ public:
     angle_D = angle_D_;
   }
 
-  void printData() {
-    std::cout << name << ": " << std::endl;
+  virtual bool check() override {
+    unsigned short sum_of_angle{ 0 };
+    sum_of_angle = angle_A + angle_B + angle_C + angle_D;
+
+    if (numberOfSides == 4 && sum_of_angle == 360) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  };
+
+  void print_info() {
+    Figure::print_info();
     std::cout << "Стороны: a=" << side_a << " b=" << side_b << " c=" << side_c << " d=" << side_d << std::endl;
     std::cout << "Углы: A=" << angle_A << " B=" << angle_B << " C=" << angle_C << " D=" << angle_D << std::endl;
   }
-};//class
+ };//class
 
 //-----------------------------------------------------------------------------
 class Parallelogram :public Quadrilateral
@@ -143,6 +216,16 @@ public:
     angle_A = angle_C = angle_A_;
     angle_B = angle_D = angle_B_;
   }
+
+  virtual bool check() override {
+    if (Quadrilateral::check() && side_a == side_c && side_b == side_d && 
+      angle_A == angle_C && angle_B == angle_D) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 };//class
 
 //-----------------------------------------------------------------------------
@@ -157,6 +240,16 @@ public:
     side_b = side_d = side_b_;
     angle_A = angle_B = angle_C = angle_D = 90;
   }
+
+  virtual bool check() override {
+    if (Quadrilateral::check() && side_a == side_c && side_b == side_d &&
+      angle_A == 90) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 };//class
 
 //-----------------------------------------------------------------------------
@@ -169,6 +262,15 @@ public:
 
     side_a = side_c = side_b = side_d =  side_a_;
     angle_A = angle_B = angle_C = angle_D = 90;
+  }
+
+  virtual bool check() override {
+    if (Quadrilateral::check() && side_a == side_c && angle_A == 90) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 };//class
 
@@ -184,18 +286,26 @@ public:
     angle_A = angle_C = angle_A_;
     angle_B = angle_D = angle_B_;
   }
+
+  virtual bool check() override {
+    if (Quadrilateral::check() && side_a == side_c && angle_A == angle_C && 
+      angle_B == angle_D) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 };//class
 
-void print_info(Figure* figure) {
-  figure->printData();
-  std::cout << std::endl;
-}
 
 int main(int argc, char** argv)
 {
   setlocale(0, "Rus");
   SetConsoleCP(1251);
   SetConsoleOutputCP(1251);
+
+  Figure fig;
 
   ScaleneTriangle scTriangle(44, 55, 66, 50, 50, 50);
 
@@ -205,6 +315,8 @@ int main(int argc, char** argv)
 
   IsoscelesTriangle isTriangle(10, 20, 30);
 
+  Quadrilateral someQuadrilateral (10, 20, 30, 40, 50, 60, 70, 80);
+
   Parallelogram someParallelogram(21, 31, 20, 30);
 
   RectangleT someRectangle(20, 30);
@@ -213,32 +325,35 @@ int main(int argc, char** argv)
 
   Rhomb someRhomb(50, 60, 130);
 
-  Figure fig;
-  Figure* pfig = &fig;
+  fig.print_info();
 
+  Figure* pfig = &fig;
   pfig = &scTriangle;
-  print_info(pfig);
+  scTriangle.print_info();
   
   pfig = &raTriangle;
-  print_info(pfig);
-  
+  raTriangle.print_info();
+
   pfig = &eqTriangle;
-  print_info(pfig);
+  pfig->print_info();
 
   pfig = &isTriangle;
-  print_info(pfig);
+  pfig->print_info();
+
+  pfig = &someQuadrilateral;
+  pfig->print_info();
 
   pfig = &someParallelogram;
-  print_info(pfig);
+  pfig->print_info();
 
   pfig = &someRectangle;
-  print_info(pfig);
+  pfig->print_info();
 
   pfig = &someSquare;
-  print_info(pfig);
+  pfig->print_info();
 
   pfig = &someRhomb;
-  print_info(pfig);
+  pfig->print_info();
 
   return 0;
 }

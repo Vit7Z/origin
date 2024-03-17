@@ -77,6 +77,7 @@ class Fraction {
 		}
 
 		std::string printOutFraction () {
+			reduce();
 		  std::string fraction = "";
 
 			if (num_ == 0) {
@@ -102,7 +103,6 @@ class Fraction {
 			int denomTmp = calculateLcm(denom_, other.denom_);
 			int numTmp = (num_ * (denomTmp / denom_)) + (other.num_ * (denomTmp / other.denom_));
 			Fraction result = Fraction(numTmp, denomTmp);
-			reduce();
 			return result;
 		}
 
@@ -110,7 +110,6 @@ class Fraction {
 			int denomTmp = calculateLcm(denom_, other.denom_);
 			int numTmp = (num_ * (denomTmp / denom_)) - (other.num_ * (denomTmp / other.denom_));
 			Fraction result = Fraction(numTmp, denomTmp);
-			reduce();
 			return result;
 		}
 
@@ -118,7 +117,6 @@ class Fraction {
 			int numTmp = num_ * other.num_;
 			int denomTmp = denom_ * other.denom_;
 			Fraction result = Fraction(numTmp, denomTmp);
-			reduce();
 			return result;
 		}
 
@@ -126,26 +124,39 @@ class Fraction {
 			int numTmp = num_ * other.denom_;
 			int denomTmp = denom_ * other.num_;
 			Fraction result = Fraction(numTmp, denomTmp);
-			reduce();
 			return result;
 		}
 
+		//----префикс++------------------------------
 		Fraction& operator++() {
 			num_ += denom_;
 			reduce();
 			return *this;
 		}
 
+		//----постфикс++-----------------------------
+		Fraction operator++(int num_) {
+			Fraction temp = *this;
+			++(*this);
+			reduce();
+			return *this;
+		}
+
+		//----префикс--------------------------------
 		Fraction& operator--() {
 			num_ -= denom_;
 			reduce();
 			return *this;
 		}
+
+		//----постфикс-------------------------------
+		Fraction operator--(int num_) {
+			Fraction temp = *this;
+			--(*this);
+			reduce();
+			return *this;
+		}
 };//class
-
-
-
-
 
 int main(int argc, char** argv) 
 {
@@ -160,30 +171,22 @@ int main(int argc, char** argv)
 
 	int gcd;
 
-	//std::cout << "Введите числитель дроби 1: ";
-	//std::cin >> numerator_1;
+	std::cout << "Введите числитель дроби 1: ";
+	std::cin >> numerator_1;
 
-	//std::cout << "Введите знаменатель дроби 1: ";
-	//std::cin >> denominator_1;
-	//checkZero(denominator_1, 1);
+	std::cout << "Введите знаменатель дроби 1: ";
+	std::cin >> denominator_1;
+	checkZero(denominator_1, 1);
 
-	//std::cout << "Введите числитель дроби 2: ";
-	//std::cin >> numerator_2;
+	std::cout << "Введите числитель дроби 2: ";
+	std::cin >> numerator_2;
 
-	//std::cout << "Введите знаменатель дроби 2: ";
-	//std::cin >> denominator_2;
-	//checkZero(denominator_2, 2);
+	std::cout << "Введите знаменатель дроби 2: ";
+	std::cin >> denominator_2;
+	checkZero(denominator_2, 2);
 
-
-	//Fraction f1(numerator_1, denominator_1);
-	//Fraction f2(numerator_2, denominator_2);
-
-	Fraction f1(1, 2);
-	Fraction f2(1, 2);
-
-
-	//Fraction f1(3, 4);
-	//Fraction f2(4, 5);
+	Fraction f1(numerator_1, denominator_1);
+	Fraction f2(numerator_2, denominator_2);
 
 	Fraction sumFraction = f1 + f2;
 
@@ -209,17 +212,27 @@ int main(int argc, char** argv)
 
 	std::cout << "\n";
 
-  Fraction sum_pre = ++f1 * f2;
+  Fraction compos_pre = ++f1 * f2;
+
+	compos_pre.reduce();
 
 	--f1;
 
-	std::cout << "++" << f1.printInFraction() << " * " << f2.printInFraction() << " = " << sum_pre.printOutFraction();
-
-	std::cout << "\n";
+	std::cout << "++" << f1.printInFraction() << " * " << f2.printInFraction() << " = " << compos_pre.printOutFraction() << "\n";
 
 	++f1;
 
-	std::cout << "Префиксный инкремент дроби 1 -> "  << f1.printInFraction();
+	std::cout << "Значение дроби 1 -> "  << f1.printInFraction() << "\n";
+
+	Fraction compos_post = f1-- * f2;
+
+	++f1;
+
+	std::cout << f1.printInFraction() << "-- * " << f2.printInFraction() << " = " << compos_pre.printOutFraction() << "\n";
+
+	f1--;
+
+	std::cout << "Значение дроби 1 -> " << f1.printInFraction() << "\n";
 
   return 0;
 }

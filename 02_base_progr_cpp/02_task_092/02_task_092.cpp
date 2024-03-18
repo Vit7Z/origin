@@ -135,11 +135,11 @@ class Fraction {
 		}
 
 		//----постфикс++-----------------------------
-		Fraction operator++(int num_) {
+		Fraction operator++(int) {
 			Fraction temp = *this;
 			++(*this);
 			reduce();
-			return *this;
+			return temp;
 		}
 
 		//----префикс--------------------------------
@@ -150,11 +150,11 @@ class Fraction {
 		}
 
 		//----постфикс-------------------------------
-		Fraction operator--(int num_) {
+		Fraction operator--(int) {
 			Fraction temp = *this;
 			--(*this);
 			reduce();
-			return *this;
+			return temp;
 		}
 };//class
 

@@ -14,13 +14,13 @@ int main(int argc, char** argv)
   
   std::string name;
 
-  Greeter stringName;
+  Leaver stringName;
 
   std::cout << "¬ведите им€: ";
 
   std::cin >> name;
 
-  std::cout << stringName.greet(name);
+  std::cout << stringName.leave(name);
 
   return 0;
 }

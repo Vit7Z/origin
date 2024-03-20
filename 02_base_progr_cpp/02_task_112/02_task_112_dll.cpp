@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
-#include "02_task_111_static_lib.h"
+#include "02_task_112_dll.h"
 
-std::string Greeter::greet(std::string inputStr_) {
-	return "Здравствуйте, " + inputStr_;
+std::string Leaver::leave(std::string inputStr_) {
+	return "До свидания, " + inputStr_;
 }

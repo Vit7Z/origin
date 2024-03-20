@@ -1,12 +1,9 @@
 #pragma once
 #include <string>
 
-class Greeter {
-  //protected:
-  //  std::string inputStr;
- 
+class Leaver { 
   public:
-    Greeter() {};
-    ~Greeter() {};
-    std::string greet(std::string);
+    Leaver() {};
+    ~Leaver() {};
+    std::string leave(std::string);
 };//class

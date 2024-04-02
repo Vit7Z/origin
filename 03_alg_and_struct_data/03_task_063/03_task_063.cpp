@@ -6,7 +6,7 @@
 #include <locale.h>
 
 //-------------------------------------------------------------------------------------
-int CalculateHash(std::string stringForHash_, int p_, int n_)
+int find_substring_light_rabin_karp(std::string m_stringForHash_, int p_, int n_)
 {
   uint64_t sum = 0;
   uint64_t tmp = 0;
@@ -14,7 +14,7 @@ int CalculateHash(std::string stringForHash_, int p_, int n_)
 
   for (int i = 0; i < stringForHash_.length(); i++) {
     tmp = (int)stringForHash_[i] * pow(p_, i);
-    sum = sum + tmp;
+    sum += tmp;
     hashString = (int)(sum % n_);
   }
   return hashString;
@@ -25,8 +25,8 @@ int main(int argc, char** argv)
   setlocale(0, "Rus");
 
   std::string stringForHash = "begin";
-  int p{ 1 };
-  int n{ 1 };
+  int p {1};
+  int n {1};
 
   std::cout << "¬ведите p: ";
   std::cin >> p;

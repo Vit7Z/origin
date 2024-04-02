@@ -20,6 +20,7 @@ int CalculateHash(std::string stringForHash_, int p_, int n_)
   return hashString;
 }
 
+//
 int main(int argc, char** argv)
 {
   setlocale(0, "Rus");

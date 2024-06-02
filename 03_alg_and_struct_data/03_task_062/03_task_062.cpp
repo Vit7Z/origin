@@ -14,7 +14,7 @@ int CalculateHash(std::string stringForHash_, int p_, int n_)
 
   for (int i = 0; i < stringForHash_.length(); i++) {
     tmp = (int)stringForHash_[i] * pow(p_, i);
-    sum = sum + tmp;
+    sum += tmp;
     hashString = (int)(sum % n_);
   }
   return hashString;

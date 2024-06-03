@@ -1,10 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <clocale>
 #include <locale.h>
 #include <windows.h>
-
 using namespace std; 
 
 //---------------------------------------------------------

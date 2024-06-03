@@ -8,17 +8,18 @@ using namespace std;
 
 //-------------------------------------
 template <class T>
-T my_square(T& a) {
+T my_square(const T& a) {
   return a * a;
 }
 
 //-------------------------------------
 template <>
-vector<long> my_square(vector<long>& b) {
+vector<long> my_square(const vector<long>& b) {
+  vector<long> c (b.size());
   for (size_t i = 0; i < b.size(); ++i) {
-    b[i] *= b[i];
+    c[i] = b[i] * b[i];
   }
-  return b;
+  return c;
 }
 
 //-------------------------------------
@@ -42,10 +43,10 @@ int main(int argc, char** argv)
   cout << "[IN]: ";
   PrintVector(vector_1);
 
-  my_square(vector_1);
+  vector<long> vector_2 = my_square(vector_1);
 
   cout << "[OUT]: ";
-  PrintVector(vector_1);
+  PrintVector(vector_2);
 
   return 0;
 }

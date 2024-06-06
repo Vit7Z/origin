@@ -2,130 +2,62 @@
 #include <fstream>
 #include <string>
 #include <clocale>
-#include <cmath>
 #include <locale.h>
-#include <catch2/catch_test_macros.hpp>
-#include <catch2/catch_session.hpp>
-#pragma once
+#include <windows.h>
 
-//-------------------------------------------------------------------------------------
-struct ListNode
+using namespace std; 
+
+//---------------------------------------------------------
+class smart_array 
 {
-public:
-  ListNode(int value, ListNode* prev = nullptr, ListNode* next = nullptr)
-    : value(value), prev(prev), next(next) {
-    if (prev != nullptr) {
-      prev->next = this;
-    }
-          
-    if (next != nullptr) {
-      next->prev = this;
-    }
-  }
+	protected:
+		int actualSize{ 1 };
+		int logicSize{ 0 };
+		int* arrNum;
 
-public:
-  int value;
-  ListNode* prev;
-  ListNode* next;
-};
+  public:
+		smart_array(int actualSize_) {
+			actualSize_ = actualSize;
+			arrNum = new int[actualSize] {0};
+	  }
 
-//-------------------------------------------------------------------------------------
-class List
-{
-public:
-  List()
-    : m_head(new ListNode(static_cast<int>(0))), m_size(0),
-    m_tail(new ListNode(0, m_head)) {}
+		void add_element(int num_) {
+			logicSize += 1;
+			if (logicSize >= actualSize) {
+				actualSize *= 2;
+				int* arrNew{ new int[actualSize]};
+				for (int i = 0; i <= logicSize; i++) {
+					arrNew[i] = arrNum[i];
+				}
+				arrNum = arrNew;
+			}
+			arrNum[logicSize - 1] = num_;
+		}
 
-  virtual ~List() {
-    Clear();
-    delete m_head;
-    delete m_tail;
-  }
+	  int get_element(int num_) {
+			return arrNum[num_];
+		}
 
-  bool Empty() { 
-    return m_size == 0; 
-  }
+		~smart_array() {
+			delete[]arrNum;
+		}
+};//class
 
-  unsigned long Size() { 
-    return m_size; 
-  }
-
-  void PushFront(int value) {
-    new ListNode(value, m_head, m_head->next);
-    ++m_size;
-  }
-
-  void PushBack(int value) {
-    new ListNode(value, m_tail->prev, m_tail);
-    ++m_size;
-  }
-
-  int PopFront() {
-    if (Empty()) {
-      throw std::runtime_error("list is empty");
-    }
-    auto node = extractPrev(m_head->next->next);
-    int ret = node->value;
-    delete node;
-    return ret;
-  }
-
-  int PopBack() {
-    if (Empty()) {
-      throw std::runtime_error("list is empty");
-    }
-    auto node = extractPrev(m_tail);
-    int ret = node->value;
-    delete node;
-    return ret;
-  }
-
-  void Clear() {
-    auto current = m_head->next;
-    while (current != m_tail) {
-      current = current->next;
-      delete extractPrev(current);
-    }
-  }
-
-private:
-  ListNode* extractPrev(ListNode* node) {
-    auto target = node->prev;
-    target->prev->next = target->next;
-    target->next->prev = target->prev;
-    --m_size;
-    return target;
-  }
-
-private:
-  ListNode* m_head;
-  ListNode* m_tail;
-  unsigned long m_size;
-};
-
-//-------------------------------------------------------------------------------------
-TEST_CASE("test Class List", "[List]") {
-  CHECK(List list_1(2)); 
-  CHECK(List.PushFront);
-  SECTION("positive numbers") {
-    CHECK(List.Empty == 1);
-    CHECK(List.Size == 120);
-    CHECK(List.Clear == 3628800);
-  }
-}
-
-
-
-
-
-//-------------------------------------------------------------------------------------
+//---------------------------------------------------------
 int main(int argc, char** argv)
 {
-  setlocale(0, "Rus");
-
-
-  return Catch::Session().run(argc, argv);
-
-  return 0;
+	try {
+		smart_array arr(5);
+		arr.add_element(1);
+		arr.add_element(4);
+		arr.add_element(155);
+		arr.add_element(14);
+		arr.add_element(15);
+		std::cout << arr.get_element(1) << std::endl;
+	}
+	catch (const std::exception& ex) {
+		std::cout << ex.what() << std::endl;
+	}
+	
+	return 0;
 }

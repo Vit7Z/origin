@@ -17,35 +17,45 @@ class smart_array
 
   public:
 		smart_array(int actualSize_) {
-			actualSize_ = actualSize;
+			actualSize = actualSize_;
 			arrNum = new int[actualSize] {0};
 	  }
 
+		smart_array(const smart_array&) = delete;
+		smart_array& operator=(const smart_array&) = delete;
+
 		void add_element(int num_) {
 			logicSize += 1;
-			if (logicSize >= actualSize) {
+			if (logicSize > actualSize) {
 				actualSize *= 2;
-				int* arrNew{ new int[actualSize]};
-				for (int i = 0; i <= logicSize; i++) {
+				int* arrNew{ new int[actualSize] {0} };
+				for (int i = 0; i < logicSize - 1; i++) {
 					arrNew[i] = arrNum[i];
 				}
-				arrNum = arrNew;
+				*arrNum = *arrNew;
+				delete [] arrNew;
 			}
 			arrNum[logicSize - 1] = num_;
 		}
 
 	  int get_element(int num_) {
-			return arrNum[num_];
+
+			if (num_ >= 0 && num_ <= logicSize) {
+					return arrNum[num_];
+			} else {
+				std::cout << "Ошибка индекса.\n";
+				exit;
+			}
 		}
 
-		~smart_array() {
-			delete[]arrNum;
-		}
+		~smart_array() {}
 };//class
 
 //---------------------------------------------------------
 int main(int argc, char** argv)
 {
+	setlocale(0, "Rus");
+
 	try {
 		smart_array arr(5);
 		arr.add_element(1);

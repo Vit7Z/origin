@@ -10,9 +10,7 @@ void ReverseOfArray (std::string* Arr, int i)
   for (int j = 0; j < i / 2 ; j++)
     {
       std::string buf = Arr[j];
-
       Arr[j] = Arr[i-1-j];
-
       Arr[i-1-j] = buf;
     }
 
@@ -38,7 +36,6 @@ int main(int argc, char** argv)
   for (int counter = 0; counter < sizeOfArray; counter++)
     {
       std::cout << "arr[" << counter << "] = ";
-
       std::cin >> arrOfStr[counter];
     }
 

@@ -13,26 +13,19 @@ void printArray(std::string* Arr, int z) {
     }
 }
 
-void moveArrayRight(std::string* Arr, int z) {
-    
-    std::string tmp = Arr[z - 1];
-    
+void moveArrayRight(std::string* Arr, int z) {   
+    std::string tmp = Arr[z - 1];    
     for (int i = z - 1; i > 0; i--) {
 			Arr[i] = Arr[i - 1];
-    }
-    
+    }   
     Arr[0] = tmp;
 }
 
 void moveArrayLeft(std::string* Arr, int z) {
-
     std::string tmp = Arr[0];
-
     for (int i = 0; i < z -1; i++) {
-
         Arr[i] = Arr[i + 1];
     }
-
     Arr[z - 1] = tmp;
 }
 

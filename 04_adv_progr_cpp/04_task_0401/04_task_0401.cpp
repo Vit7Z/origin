@@ -4,8 +4,9 @@
 #include <clocale>
 #include <cmath>
 #include <locale.h>
-#include <catch2/catch_test_macros.hpp>
-#include <catch2/catch_session.hpp>
+#include "c:\dev\vcpkg\packages\catch2_x64-windows\include\catch2\catch_test_macros.hpp"
+#include "c:\dev\vcpkg\packages\catch2_x64-windows\include\catch2\catch_session.hpp"
+#include "c:\dev\vcpkg\packages\catch2_x64-windows\include\catch.hpp"
 #pragma once
 
 //-------------------------------------------------------------------------------------
@@ -106,26 +107,25 @@ private:
 
 //-------------------------------------------------------------------------------------
 TEST_CASE("test Class List", "[List]") {
-  CHECK(List list_1(2)); 
-  CHECK(List.PushFront);
-  SECTION("positive numbers") {
-    CHECK(List.Empty == 1);
-    CHECK(List.Size == 120);
-    CHECK(List.Clear == 3628800);
+  List list_1;
+
+  REQUIRE(list_1.Empty == 0);
+
+  list_1.PushFront(11);
+
+  REQUIRE(list_1.Size == 1);
+
+  //CHECK(List.PushFront(88));
   }
-}
-
-
-
-
 
 //-------------------------------------------------------------------------------------
 int main(int argc, char** argv)
 {
   setlocale(0, "Rus");
-
-
+ 
   return Catch::Session().run(argc, argv);
 
+ 
+  
   return 0;
 }

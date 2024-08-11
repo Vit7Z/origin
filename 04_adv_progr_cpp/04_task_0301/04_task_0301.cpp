@@ -32,9 +32,8 @@ class smart_array
 				for (int i = 0; i < logicSize - 1; i++) {
 					arrNew[i] = arrNum[i];
 				}
-
-				*arrNum = *arrNew;
-				delete[] arrNew;
+				delete[] arrNum;
+				arrNum = arrNew;
 			}
 			arrNum[logicSize - 1] = num_;
 		}
@@ -59,7 +58,7 @@ int main(int argc, char** argv)
 	setlocale(0, "Rus");
 
 	try {
-		smart_array arr(2);
+		smart_array arr(5);
 		arr.add_element(1);
 		arr.add_element(4);
 		arr.add_element(155);

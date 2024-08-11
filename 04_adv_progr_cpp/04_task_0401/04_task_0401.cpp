@@ -115,7 +115,7 @@ TEST_CASE("test Class List", "[List]") {
 
   REQUIRE(list_1.Size == 1);
 
-  //CHECK(List.PushFront(88));
+  CHECK(List.PushFront(88));
   }
 
 //-------------------------------------------------------------------------------------

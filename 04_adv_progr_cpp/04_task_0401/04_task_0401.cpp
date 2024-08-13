@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -6,8 +7,6 @@
 #include <locale.h>
 #include "c:\dev\vcpkg\packages\catch2_x64-windows\include\catch2\catch_test_macros.hpp"
 #include "c:\dev\vcpkg\packages\catch2_x64-windows\include\catch2\catch_session.hpp"
-#include "c:\dev\vcpkg\packages\catch2_x64-windows\include\catch.hpp"
-#pragma once
 
 //-------------------------------------------------------------------------------------
 struct ListNode
@@ -107,16 +106,28 @@ private:
 
 //-------------------------------------------------------------------------------------
 TEST_CASE("test Class List", "[List]") {
-  List list_1;
-
-  REQUIRE(list_1.Empty == 0);
-
-  list_1.PushFront(11);
-
-  REQUIRE(list_1.Size == 1);
-
-  CHECK(List.PushFront(88));
+  
+  SECTION("Testing the Empty + Size functions") {
+    List list_1;
+    REQUIRE(list_1.Empty == 1);
+    REQUIRE(list_1.Size == 0);
   }
+
+  SECTION ("Testing the Empty + Size + PushFront functions") {
+    List list_1;
+    list_1.PushFront(11);
+    list_1.PushFront(22);
+    REQUIRE(list_1.Empty == 0);
+    REQUIRE(list_1.Size == 2);
+  }
+
+  SECTION("Testing the Clear functions") {
+    List list_1;
+    list_1.PushFront(11);
+    list_1.Clear();
+    REQUIRE(list_1.Clear == 1);
+  }
+}
 
 //-------------------------------------------------------------------------------------
 int main(int argc, char** argv)
@@ -125,7 +136,5 @@ int main(int argc, char** argv)
  
   return Catch::Session().run(argc, argv);
 
- 
-  
   return 0;
 }

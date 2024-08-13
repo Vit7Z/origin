@@ -27,7 +27,6 @@ int main(int argc, char** argv)
       listMonths currentMonth = static_cast<listMonths>(digitMonth);
 
       switch (currentMonth) {
-
         case listMonths::январь:
           std::cout << "январь\n\n";
           break;

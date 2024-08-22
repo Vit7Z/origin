@@ -121,7 +121,7 @@ TEST_CASE("test Class List", "[List]") {
 
   SECTION("Testing the PopFront function") {
     List list_4;
-    REQUIRE(list_4.PopBack == "list is empty");
+    REQUIRE(list_4.PopFront == "list is empty");
   }
 
 //-------------------------------------------------------------------------------------

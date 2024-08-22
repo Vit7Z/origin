@@ -1,4 +1,8 @@
-cmake_minimum_required(VERSION 3.30) 
+cmake_minimum_required(VERSION 3.29)
+
+set(SOURCES
+  04_task_0402.cpp
+  04_task_0402.h)
 
 project(04_task_0402)
 
@@ -6,7 +10,7 @@ project(04_task_0402)
 find_package(Catch2 CONFIG REQUIRED)
 
 #добавляем запускаемый файл с именем проекта
-add_executable(04_task_0402 04_task_0402.cpp)
+add_executable(04_task_0402 ${SOURCES})
 
 #линкуем библиотеки Catch2 
 target_link_libraries(04_task_0402 PRIVATE Catch2::Catch2 Catch2::Catch2WithMain)

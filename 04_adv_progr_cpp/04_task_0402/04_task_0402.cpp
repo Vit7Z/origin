@@ -8,7 +8,7 @@
 #include "04_task_0402.h"
 
 //-------------------------------------------------------------------------------------
-TEST_CASE("test Class List", "[List]") {
+TEST_CASE("Test Class List", "[List]") {
     SECTION("Testing the PushBack + PopBack functions") {
     List list_1;
     REQUIRE(list_1.Size() == static_cast<unsigned long> (0));
@@ -27,13 +27,13 @@ TEST_CASE("test Class List", "[List]") {
     REQUIRE(list_2.Size() == 1);
   }
 
-  SECTION("Testing the PopBack function") {
+  SECTION("Testing the PopBack function for Empty List") {
     List list_3;
-    REQUIRE(list_3.PopBack());
+    REQUIRE_THROWS(list_3.PopBack());
   }
 
-  SECTION("Testing the PopFront function") {
+  SECTION("Testing the PopFront function for Empty List") {
     List list_4;
-    REQUIRE(list_4.PopFront());
+    REQUIRE_THROWS(list_4.PopFront());
   }
 }

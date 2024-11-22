@@ -1,0 +1,16 @@
+﻿  race_emulator.cpp
+D:\YandexDisk\it_netology_tasks\02_course_paper\racers_dll\racers_dll.h(79,20): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+  (compiling source file 'race_emulator.cpp')
+  
+D:\YandexDisk\it_netology_tasks\02_course_paper\racers_dll\racers_dll.h(103,29): warning C4305: 'initializing': truncation from 'double' to 'float'
+  (compiling source file 'race_emulator.cpp')
+  
+D:\YandexDisk\it_netology_tasks\02_course_paper\racers_dll\racers_dll.h(104,29): warning C4305: 'initializing': truncation from 'double' to 'float'
+  (compiling source file 'race_emulator.cpp')
+  
+D:\YandexDisk\it_netology_tasks\02_course_paper\racers_dll\racers_dll.h(105,29): warning C4305: 'initializing': truncation from 'double' to 'float'
+  (compiling source file 'race_emulator.cpp')
+  
+  race_emulator.vcxproj -> D:\YandexDisk\it_netology_tasks\02_course_paper\x64\Debug\race_emulator.exe
+  "pwsh.exe" не является внутренней или внешней
+  командой, исполняемой программой или пакетным файлом.

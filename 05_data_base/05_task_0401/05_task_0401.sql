@@ -73,9 +73,9 @@ VALUES ('This Left Feels Right', 2000),
        ('The E.N.D. Summer', 2023);
        
 INSERT INTO GenreArtist (genre_id, artist_id)
-VALUES (100, 101),
-       (100, 102),
-       (120, 123),
-       (120, 124),
-       (140, 145),
-       (140, 146);
+VALUES (1, 1),
+       (1, 2),
+       (2, 3),
+       (2, 4),
+       (3, 5),
+       (3, 6);

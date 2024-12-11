@@ -25,8 +25,6 @@ void decrease(unsigned int& crntNum) {
 	}
 }
 
-
-
 int main() {
 	setlocale(0, "Rus");
 

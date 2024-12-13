@@ -18,8 +18,7 @@ set(PROJECT_SOURCES
         mainwindow.ui
 )
 
-qt_add_executable(08_task_0101
-    MANUAL_FINALIZATION
+add_executable(08_task_0101
     ${PROJECT_SOURCES}
 )
 

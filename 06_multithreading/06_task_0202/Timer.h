@@ -44,6 +44,7 @@ public:
         m_beg = clock_t::now();
     }
     void print() const {
-        std::cout << m_name << ":\t" << elapsed() * 1000 << " ms" << '\n';
+        std::cout << m_name << elapsed() * 1000 << " ms" << '\n';
+        //std::cout << m_name << ":\t" << elapsed() * 1000 << " ms" << '\n';
     }
 };

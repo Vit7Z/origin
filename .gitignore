@@ -10,3 +10,4 @@ initial_data/
 *.pdf
 *.md
 *.txt
+!CMakeLists.txt

@@ -1,7 +1,5 @@
 ﻿#include <iostream>
-
 #include "data_class.h"
-
 #include <vector>
 #include <Windows.h>
 #include <thread>
@@ -56,9 +54,9 @@ int main() {
   SwapByLock(data_1, data_2);
   PrintData("SwapByLock:", data_1, data_2);
   
-  //PrintData("Исх. данные:", data_1, data_2);
-  //SwapByScopedLock(data_1, data_2);
-  //PrintData("SwapByScopedLock:", data_1, data_2);
+  PrintData("Исх. данные:", data_1, data_2);
+  SwapByScopedLock(data_1, data_2);
+  PrintData("SwapByScopedLock:", data_1, data_2);
 
   PrintData("Исх. данные:", data_1, data_2);
   SwapByUniqueLock(data_1, data_2);

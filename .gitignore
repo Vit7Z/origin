@@ -6,8 +6,10 @@
 /07_course_paper/
 /08_course_paper/
 /09_course_paper/
+/to_do_it/
 initial_data/
 *.pdf
 *.md
+*.mp4
 *.txt
 !CMakeLists.txt

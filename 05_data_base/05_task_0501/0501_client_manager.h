@@ -15,7 +15,7 @@ struct Client {
 
 class Manager {
   private:
-    pqxx::connection connection;
+    pqxx::connection m_connection;
 
   public:
     Manager(const std::string& db_connection_string);
@@ -28,7 +28,6 @@ class Manager {
     void UpdateClient(const std::string& email, const std::string& new_email, 
                       const std::string& new_first_name, const std::string& new_last_name);
     std::vector<Client> FindClients(const std::string& search_query);
-
 };
 
 void ShowFoundClients(std::vector<Client> found_clients);

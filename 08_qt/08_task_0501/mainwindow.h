@@ -2,7 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "signalcollect.h"
+#include <QTimer>
+#include <QTime>
+#include <QFont>
+#include "stopwatch.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -11,26 +14,16 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
-public:
+  public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+  public slots:
+    void ShowTimer(uint, float);
+    void ShowTimerLap(uint, float, uint);
 
-
-private:
+  private:
     Ui::MainWindow *ui;
-    SignalCollect *sigColl;
-
-
-public slots:
-
-    void RcvSignal(QString str);
-    void RcvSignal(int num);
-    void SendSignals( void );
-
-
+    StopWatch* stopWatch;
 };
-
-
 #endif // MAINWINDOW_H

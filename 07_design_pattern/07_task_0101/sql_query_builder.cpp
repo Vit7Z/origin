@@ -55,7 +55,7 @@ SqlSelectQueryBuilder& SqlSelectQueryBuilder::AddColumns(const std::vector<std::
 
 std::string SqlSelectQueryBuilder::BuildQuery() {
   buildQuery = "SELECT";
-  buildQuery += " " + columnNames + " FROM " + tableName + " WHERE " + whereCondition + ";";
+  buildQuery += " " + columnNames + tableName + whereCondition + ";";
   return buildQuery;
 }
 

@@ -17,7 +17,7 @@ class StopWatch : public QObject
     void StartTimer();
     void StopTimer();
     void ResetTime();
-    void GetLap();
+    LapInfo GetLap();
   private:
     QTimer* timer;
     uint16_t minutes, mnt_tmp, mil_seconds, minutes_lap, counter_lap;

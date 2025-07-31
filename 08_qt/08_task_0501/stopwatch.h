@@ -10,14 +10,17 @@ class StopWatch : public QObject
   public:
     explicit StopWatch(QObject *parent = nullptr);
     ~StopWatch();
+    
   signals:
     void SignalTimer(uint, float);
     void SignalGetLap(uint, float, uint);
+    
   public slots:
     void StartTimer();
     void StopTimer();
     void ResetTime();
     LapInfo GetLap();
+    
   private:
     QTimer* timer;
     uint16_t minutes, mnt_tmp, mil_seconds, minutes_lap, counter_lap;
